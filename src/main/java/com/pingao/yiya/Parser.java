@@ -70,7 +70,7 @@ public class Parser {
 
             word.setMi(mi(word));
             word.setEntropy(entropy(word));
-            if (word.getMi() > 300 && word.getEntropy() > 0.02) {  // 筛选条件
+            if (word.getMi() > 300 && word.getEntropy() > 0.5) {  // 筛选条件
                 candidates.add(word);
             }
         }
