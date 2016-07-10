@@ -11,6 +11,6 @@ import java.io.IOException;
  */
 public class YiyaTest {
     public static void main(String[] args) throws IOException {
-        Yiya.words(FileUtils.readFileToString(new File("./wangfeng.txt"), "GBK"), 100).forEach(System.out::println);
+        Yiya.topn(FileUtils.readFileToString(new File("./book/隋唐演义.txt"), "GBK"), 100).forEach(System.out::println);
     }
 }
