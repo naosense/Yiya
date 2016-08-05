@@ -16,33 +16,32 @@ public class Word implements Comparable<Word> {
     // 右邻字个数
     private int rightWordsNum;
     // 词的频数
-    private int frequency;
+    private long frequency;
     // 词的熵值
     private float entropy;
     // 词的互信息
     private float mi;
     // 词的字符串值
     private String value;
+    // 词的总数
+    public static long N;
 
-    public Word() {
+    public Word(String value) {
+        this.value = value;
         this.leftWords = new HashMap<>();
         this.rightWords = new HashMap<>();
     }
 
-    public int getFrequency() {
+    public long getFrequency() {
         return frequency;
     }
 
-    public void setFrequency(int frequency) {
+    public void setFrequency(long frequency) {
         this.frequency = frequency;
     }
 
     public String getValue() {
         return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
     }
 
     public float getEntropy() {
@@ -97,9 +96,9 @@ public class Word implements Comparable<Word> {
 
     @Override
     public int compareTo(Word o) {
-        if (this.frequency > o.frequency) {
+        if (frequency > o.frequency) {
             return -1;
-        } else if (this.frequency < o.frequency) {
+        } else if (frequency < o.frequency) {
             return 1;
         } else {
             return 0;
@@ -109,8 +108,8 @@ public class Word implements Comparable<Word> {
     @Override
     public String toString() {
         return "Word[value=" + value
-                + ", frequency=" + frequency
-                + ", entropy=" + entropy
-                + ", mi=" + mi + "]";
+               + ", frequency=" + frequency
+               + ", entropy=" + entropy
+               + ", mi=" + mi + "]";
     }
 }
