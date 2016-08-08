@@ -3,7 +3,7 @@ package com.pingao.yiya;
 import java.util.Map;
 
 /**
- * Created by pingao.liu on 2016/8/4.
+ * Created by wocanmei on 2016/8/4.
  */
 public class OnceParser extends Parser {
 
