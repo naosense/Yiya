@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by pingao.liu on 2016/8/4.
+ * Created by wocanmei on 2016/8/4.
  */
 public class MemoryParser extends Parser {
     private Jedis jedis;

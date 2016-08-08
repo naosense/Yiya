@@ -5,7 +5,7 @@ import redis.clients.jedis.Jedis;
 import java.util.List;
 
 /**
- * Created by pingao.liu on 2016/8/4.
+ * Created by wocanmei on 2016/8/4.
  */
 public class Yiya {
     private Yiya() {}
