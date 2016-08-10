@@ -18,11 +18,11 @@ public class OnceParser extends Parser {
         for (int j = 0; j < N; j++) {
             for (int len = 1; j + len <= N && len <= MAX_WORD_LEN; len++) {
                 String w = this.text.substring(j, j + len).intern();
-                Word word = dict.get(w);
+                Word word = this.dict.get(w);
                 if (word == null) {
                     word = new Word(w);
                     word.setFrequency(1);
-                    dict.put(w, word);
+                    this.dict.put(w, word);
                 } else {
                     word.setFrequency(word.getFrequency() + 1);
                 }
@@ -43,12 +43,12 @@ public class OnceParser extends Parser {
 
     @Override
     void filter() {
-        for (Map.Entry<String, Word> entry : dict.entrySet()) {
+        for (Map.Entry<String, Word> entry : this.dict.entrySet()) {
             Word word = entry.getValue();
             word.setMi(mi(word));
             word.setEntropy(entropy(word));
             if (word.getMi() > 300 && word.getEntropy() > 0.5) {  // 筛选条件
-                candidates.add(word);
+                this.candidates.add(word);
             }
         }
     }
@@ -64,8 +64,8 @@ public class OnceParser extends Parser {
         for (int i = 1; i < len; i++) {
             String left = val.substring(0, i);
             String right = val.substring(i);
-            if (i == 1 || tmp < dict.get(left).getFrequency() * dict.get(right).getFrequency()) {
-                tmp = dict.get(left).getFrequency() * dict.get(right).getFrequency();
+            if (i == 1 || tmp < this.dict.get(left).getFrequency() * this.dict.get(right).getFrequency()) {
+                tmp = this.dict.get(left).getFrequency() * this.dict.get(right).getFrequency();
             }
         }
 

@@ -4,7 +4,9 @@ import com.pingao.yiya.Word;
 import com.pingao.yiya.Yiya;
 import redis.clients.jedis.Jedis;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collections;
