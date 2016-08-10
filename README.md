@@ -1,25 +1,19 @@
 # Yiya
 一个无字典分词程序，名字来源于汉语“咿呀学语”。
 
-- 输出频率最高的100个词，不含字本身信息
-
-```java
-String text = "xxx";
-Yiya.topn(text, 100).forEach(System.out::println);
-```
-
-- 输出频率最高的100个词
-
-```java
-String text = "xxx";
-Yiya.words(text, 100).forEach(System.out::println);
-```
-
-- 输出所有词
+- 输出所有分词
 
 ```java
 String text = "xxx";
 Yiya.words(text).forEach(System.out::println);
+```
+
+- 输出所有分词, 将redis作为存储，并将新的分词添加到redis中
+
+```java
+String text = "xxx";
+Jedis jedis = new Jedis("localhost");
+Yiya.words(text, jedis, true).forEach(System.out::println);
 ```
 
 例如《三国演义》前100个词为
