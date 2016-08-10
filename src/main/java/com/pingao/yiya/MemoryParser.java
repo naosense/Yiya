@@ -43,35 +43,35 @@ public class MemoryParser extends Parser {
         for (int j = 0; j < N; j++) {
             for (int len = 1; j + len <= N && len <= MAX_WORD_LEN; len++) {
                 String w = this.text.substring(j, j + len).intern();
-                words.add(w);
-                if (append) {
-                    jedis.incr(DICT_SIZE);
-                    jedis.hincrBy(DICT_DB, w, 1);
+                this.words.add(w);
+                if (this.append) {
+                    this.jedis.incr(DICT_SIZE);
+                    this.jedis.hincrBy(DICT_DB, w, 1);
                     if (len > 1 && j > 0) {
                         char l = this.text.charAt(j - 1);
-                        jedis.hincrBy(NEIGHBOUR_PRE + w, NEIGHBOUR_LEFT_PRE + l, 1);
-                        jedis.hincrBy(NEIGHBOR_LEFT_COUNTER, w, 1);
+                        this.jedis.hincrBy(NEIGHBOUR_PRE + w, NEIGHBOUR_LEFT_PRE + l, 1);
+                        this.jedis.hincrBy(NEIGHBOR_LEFT_COUNTER, w, 1);
                     }
                     if (len > 1 && j + len < N) {
                         char r = this.text.charAt(j + len);
-                        jedis.hincrBy(NEIGHBOUR_PRE + w, NEIGHBOUR_RIGHT_PRE + r, 1);
-                        jedis.hincrBy(NEIGHBOR_RIGHT_COUNTER, w, 1);
+                        this.jedis.hincrBy(NEIGHBOUR_PRE + w, NEIGHBOUR_RIGHT_PRE + r, 1);
+                        this.jedis.hincrBy(NEIGHBOR_RIGHT_COUNTER, w, 1);
                     }
                 }
             }
         }
-        return Long.parseLong(jedis.get(DICT_SIZE));
+        return Long.parseLong(this.jedis.get(DICT_SIZE));
     }
 
     @Override
     void filter() {
-        for (String w : words) {
+        for (String w : this.words) {
             Word word = new Word(w);
-            word.setFrequency(Long.parseLong(jedis.hget(DICT_DB, w)));
+            word.setFrequency(Long.parseLong(this.jedis.hget(DICT_DB, w)));
             word.setMi(mi(word));
             word.setEntropy(entropy(word));
             if (word.getMi() > 300 && word.getEntropy() > 0.5) {  // 筛选条件
-                candidates.add(word);
+                this.candidates.add(word);
             }
         }
     }
@@ -87,8 +87,8 @@ public class MemoryParser extends Parser {
         for (int i = 1; i < len; i++) {
             String left = val.substring(0, i);
             String right = val.substring(i);
-            long leftFreq = Long.parseLong(jedis.hget(DICT_DB, left));
-            long rightFreq = Long.parseLong(jedis.hget(DICT_DB, right));
+            long leftFreq = Long.parseLong(this.jedis.hget(DICT_DB, left));
+            long rightFreq = Long.parseLong(this.jedis.hget(DICT_DB, right));
             if (i == 1 || tmp < leftFreq * rightFreq) {
                 tmp = leftFreq * rightFreq;
             }
@@ -103,15 +103,15 @@ public class MemoryParser extends Parser {
         }
         float left = 0.0f;
         float right = 0.0f;
-        for (Map.Entry<String, String> entry : jedis.hgetAll(NEIGHBOUR_PRE + word.getValue()).entrySet()) {
+        for (Map.Entry<String, String> entry : this.jedis.hgetAll(NEIGHBOUR_PRE + word.getValue()).entrySet()) {
             if (entry.getKey().startsWith(NEIGHBOUR_LEFT_PRE)) {
                 long freq = Long.parseLong(entry.getValue());
-                long total = Long.parseLong(jedis.hget(NEIGHBOR_LEFT_COUNTER, word.getValue()));
+                long total = Long.parseLong(this.jedis.hget(NEIGHBOR_LEFT_COUNTER, word.getValue()));
                 float p = (float) freq / total;
                 left += (-p) * Math.log(p);
             } else {
                 long freq = Long.parseLong(entry.getValue());
-                long total = Long.parseLong(jedis.hget(NEIGHBOR_RIGHT_COUNTER, word.getValue()));
+                long total = Long.parseLong(this.jedis.hget(NEIGHBOR_RIGHT_COUNTER, word.getValue()));
                 float p = (float) freq / total;
                 right += (-p) * Math.log(p);
             }

@@ -7,7 +7,7 @@ import java.util.*;
  */
 abstract class Parser {
     // 词的最大长度
-    protected static final int MAX_WORD_LEN = 4;
+    protected static final int MAX_WORD_LEN = 6;
     // 待处理的字符串
     protected String text;
     // 内部词典
@@ -28,7 +28,7 @@ abstract class Parser {
     public List<Word> parse() {
         Word.N = makeDict();
         filter();
-        return candidates;
+        return this.candidates;
     }
 
     abstract long makeDict();

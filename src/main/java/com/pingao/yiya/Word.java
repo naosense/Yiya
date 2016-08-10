@@ -33,7 +33,7 @@ public class Word implements Comparable<Word> {
     }
 
     public long getFrequency() {
-        return frequency;
+        return this.frequency;
     }
 
     public void setFrequency(long frequency) {
@@ -41,11 +41,11 @@ public class Word implements Comparable<Word> {
     }
 
     public String getValue() {
-        return value;
+        return this.value;
     }
 
     public float getEntropy() {
-        return entropy;
+        return this.entropy;
     }
 
     public void setEntropy(float entropy) {
@@ -53,7 +53,7 @@ public class Word implements Comparable<Word> {
     }
 
     public float getMi() {
-        return mi;
+        return this.mi;
     }
 
     public void setMi(float mi) {
@@ -61,19 +61,19 @@ public class Word implements Comparable<Word> {
     }
 
     public Map<Character, Integer> getLeftWords() {
-        return leftWords;
+        return this.leftWords;
     }
 
     public int getLeftWordsNum() {
-        return leftWordsNum;
+        return this.leftWordsNum;
     }
 
     public Map<Character, Integer> getRightWords() {
-        return rightWords;
+        return this.rightWords;
     }
 
     public int getRightWordsNum() {
-        return rightWordsNum;
+        return this.rightWordsNum;
     }
 
     public void addLeftWords(char c) {
@@ -96,9 +96,9 @@ public class Word implements Comparable<Word> {
 
     @Override
     public int compareTo(Word o) {
-        if (frequency > o.frequency) {
+        if (this.frequency > o.frequency) {
             return -1;
-        } else if (frequency < o.frequency) {
+        } else if (this.frequency < o.frequency) {
             return 1;
         } else {
             return 0;
@@ -107,9 +107,9 @@ public class Word implements Comparable<Word> {
 
     @Override
     public String toString() {
-        return "Word[value=" + value
-               + ", frequency=" + frequency
-               + ", entropy=" + entropy
-               + ", mi=" + mi + "]";
+        return "Word[value=" + this.value
+               + ", frequency=" + this.frequency
+               + ", entropy=" + this.entropy
+               + ", mi=" + this.mi + "]";
     }
 }
