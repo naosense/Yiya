@@ -33,7 +33,7 @@ public class PieAnalyseTest {
         String EMPTY = "";
         String title = EMPTY, content = EMPTY, sex = EMPTY, age = EMPTY, weekday = EMPTY, hour = EMPTY;
         boolean isend = false;
-        BufferedReader reader = Files.newBufferedReader(Paths.get("./book/sm(1).txt"), Charset.forName("UTF-8"));
+        BufferedReader reader = Files.newBufferedReader(Paths.get("./book/byr.txt"), Charset.forName("UTF-8"));
         System.out.println("sex\tage\tweekday\thour\ttitle");
         for (String line = reader.readLine(); line != null; line = reader.readLine()) {
             if (line.equals("-----------------------------------------------------------------------------")) {
@@ -89,7 +89,7 @@ public class PieAnalyseTest {
                     String s = content;
                     int index = s.indexOf("年");
                     while (index > -1) {
-                        if (index > 2 && isDigit(s.charAt(index - 1)) && isDigit(s.charAt(index - 2))) {
+                        if (index >= 2 && isDigit(s.charAt(index - 1)) && isDigit(s.charAt(index - 2))) {
                             age = s.substring(index - 2, index);
                             break;
                         }
@@ -146,14 +146,14 @@ public class PieAnalyseTest {
         //topn(maleContentOf70Age.toString(), 100);
         //System.out.println("===========70Female==========");
         //topn(femaleContentOf70Age.toString(), 100);
-        //System.out.println("===========80Male==========");
-        //topn(maleContentOf80Age.toString(), 100);
-        //System.out.println("===========80Female==========");
-        //topn(femaleContentOf80Age.toString(), 100);
-        //System.out.println("===========90Male==========");
-        //topn(maleContentOf90Age.toString(), 100);
-        //System.out.println("===========90Female==========");
-        //topn(femaleContentOf90Age.toString(), 100);
+        System.out.println("===========80Male==========");
+        topn(maleContentOf80Age.toString(), 200);
+        System.out.println("===========90Male==========");
+        topn(maleContentOf90Age.toString(), 200);
+        System.out.println("===========80Female==========");
+        topn(femaleContentOf80Age.toString(), 200);
+        System.out.println("===========90Female==========");
+        topn(femaleContentOf90Age.toString(), 200);
 
         System.out.println("article count=" + articleCount);
         System.out.println("male count=" + maleArticleCount);
